@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./style.css";
 import className from 'classnames';
-function TodoAdd({ setTodos }) {
+function AddTodo({ setTodos }) {
     const [inputValue, setInputValue] = useState("");
     const [isInvalid, setInvalid] = useState(false);
 
@@ -49,4 +49,4 @@ function TodoAdd({ setTodos }) {
     )
 }
 
-export default TodoAdd;
+export default AddTodo;
