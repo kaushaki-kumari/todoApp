@@ -9,8 +9,24 @@ function TodoApp() {
         { id: 2, title: "xyz",completed: false},
     ]);
 
-    const [inputValue, setInputValue] = useState(""); 
-    const [editingId, setEditingId] = useState(null);
+    const [inputState, setInputState] = useState({
+        inputValue: "",
+        editingId: null,
+    });
+
+    const setInputValue = (newInputValue) => {
+        setInputState((prevState) => ({
+            ...prevState,
+            inputValue: newInputValue,
+        }));
+    };
+
+    const setEditingId = (newEditingId) => {
+        setInputState((prevState) => ({
+            ...prevState,
+            editingId: newEditingId,
+        }));
+    };
     return (
         <>
               <TodoList
@@ -20,11 +36,12 @@ function TodoApp() {
                 setEditingId={setEditingId} 
             />
              <AddTodo
-                setTodos={setTodos}
-                inputValue={inputValue}
-                setInputValue={setInputValue}
-                editingId={editingId}
-                setEditingId={setEditingId}
+              todos={todos}
+              setTodos={setTodos}
+              inputValue={inputState.inputValue}
+              setInputValue={setInputValue}
+              editingId={inputState.editingId}
+              setEditingId={setEditingId}
             /> 
         </>
     );
