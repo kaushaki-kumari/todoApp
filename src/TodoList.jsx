@@ -1,6 +1,6 @@
 import React from "react";
 import TodoAdd from "./TodoAdd";
-import ListData from "./ListData";
+import TodoListItem from "./TodoListItem";
 import  { useState } from "react";
 
 function TodoList() {
@@ -11,7 +11,7 @@ function TodoList() {
 
     return (
         <>
-           <ListData todos={todos} setTodos={setTodos} />
+        <TodoListItem  todos={todos} setTodos={setTodos}/>
            <TodoAdd setTodos={setTodos} />
         </>
     );

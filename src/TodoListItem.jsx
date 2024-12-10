@@ -1,6 +1,6 @@
 import React from "react";
 
-function ListData({ todos, setTodos }) {
+function TodoListItem({ todos, setTodos }) {
     const checkboxChecked = (id) => {
         setTodos((prevTodos) =>
             prevTodos.map((todo) =>
@@ -16,18 +16,18 @@ function ListData({ todos, setTodos }) {
                     key={todo.id}
                     className="list-group-item d-flex justify-content-between align-items-center"
                 >
-                    <span className="custom-checkbox">
+                    <div className="custom-checkbox">
                         <input
                             type="checkbox"
                             checked={todo.completed}
                             onChange={() => checkboxChecked(todo.id)}
                         />
                         <span className="ms-2">{todo.title}</span>
-                    </span>
+                    </div>
                     {todo.completed && (
-                        <span className="badge bg-secondary rounded-pill fw-bolder">
+                        <div className="badge bg-secondary rounded-pill fw-bolder">
                             Completed
-                        </span>
+                        </div>
                     )}
                 </li>
             ))}
@@ -35,4 +35,4 @@ function ListData({ todos, setTodos }) {
     );
 }
 
-export default ListData;
+export default TodoListItem;

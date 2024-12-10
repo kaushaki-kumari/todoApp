@@ -27,8 +27,6 @@ function TodoAdd({ setTodos }) {
     const inputClass = className(`form-control mb-3`,{
         'is-invalid':isInvalid
     });
-
-    const buttonClass = className("btn border border-2 btn-sm cursor-pointer");
     return (
         <div className="my-3">
             <h6>Todo</h6>
@@ -41,7 +39,7 @@ function TodoAdd({ setTodos }) {
             />
             <button
                 type="button"
-                className={buttonClass}
+                className={"btn border border-2 btn-sm cursor-pointer"}
                 onClick={handleAddTodo}
             >
                 Submit
