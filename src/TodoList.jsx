@@ -1,35 +1,17 @@
 import React from "react";
-
-function TodoList({ todos, setTodos }) {
-    const checkboxChecked = (id) => {
-        setTodos((prevTodos) =>
-            prevTodos.map((todo) =>
-                todo.id === id ? { ...todo, completed: !todo.completed } : todo
-            )
-        );
-    };
+import TodoItem from "./TodoItem";
+function TodoList({ todos, setTodos , setInputValue, setEditingId   }) {
 
     return (
         <ul className="list-group">
             {todos.map((todo) => (
-                <li
-                    key={todo.id}
-                    className="list-group-item d-flex justify-content-between align-items-center"
-                >
-                    <div className="custom-checkbox">
-                        <input
-                            type="checkbox"
-                            checked={todo.completed}
-                            onChange={() => checkboxChecked(todo.id)}
-                        />
-                        <span className="ms-2">{todo.title}</span>
-                    </div>
-                    {todo.completed && (
-                        <div className="badge bg-secondary rounded-pill fw-bolder">
-                            Completed
-                        </div>
-                    )}
-                </li>
+               <TodoItem
+               key={todo.id}
+               todos={todo}
+               setTodos={setTodos}
+               setInputValue={setInputValue}
+               setEditingId={setEditingId}
+           />
             ))}
         </ul>
     );

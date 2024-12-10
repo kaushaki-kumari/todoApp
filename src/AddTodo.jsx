@@ -1,31 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./style.css";
 import className from 'classnames';
-function AddTodo({ setTodos }) {
-    const [inputValue, setInputValue] = useState("");
-    const [isInvalid, setInvalid] = useState(false);
 
-    const handleInputChange = (value) => {
-        setInputValue(value);
-        setInvalid(false);
-    };
+function AddTodo({ setTodos, inputValue, setInputValue, editingId, setEditingId }) {
+    const [isInvalid, setInvalid] = useState(false);
+    const inputRef = useRef(null)
+
+    useEffect(() => {
+        if (editingId || inputValue === "") {
+            inputRef.current.focus();
+        }
+    }, [editingId]);
+
     const handleAddTodo = () => {
         const trimmedValue = inputValue.trim();
         if (trimmedValue) {
-            setTodos((prevTodos) => [
-                ...prevTodos,
-                { id: Date.now(), title: inputValue, completed: false },
-            ]);
-            setInputValue(""); 
-            setInvalid(false);  
+            if (editingId) {
+                setTodos((prevTodos) =>
+                    prevTodos.map((todo) =>
+                        todo.id === editingId ? { ...todo, title: trimmedValue } : todo));
+                setEditingId(null)
+            }
+            else {
+                setTodos((prevTodos) => [
+                    ...prevTodos,
+                    { id: Date.now(), title: inputValue, completed: false },
+                ]);
+            }
+            setInputValue("");
+            setInvalid(false);
         }
         else {
-            setInvalid(true); 
+            setInvalid(true);
         }
     };
 
-    const inputClass = className(`form-control mb-3`,{
-        'is-invalid':isInvalid
+    const inputClass = className(`form-control mb-3`, {
+        'is-invalid': isInvalid
     });
     return (
         <div className="my-3">
@@ -35,7 +46,8 @@ function AddTodo({ setTodos }) {
                 className={inputClass}
                 placeholder="Your Todo..."
                 value={inputValue}
-                onChange={(event) => handleInputChange(event.target.value)}
+                onChange={(event) => setInputValue(event.target.value)}
+                ref={inputRef}
             />
             <button
                 type="button"
