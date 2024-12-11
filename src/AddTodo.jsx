@@ -34,10 +34,23 @@ function AddTodo({ setTodos, inputValue, setInputValue, editingId, setEditingId 
             setInvalid(true);
         }
     };
+    const handleInputChange = (event) => {
+        setInputValue(event.target.value);
+            if(isInvalid){
+                setInvalid(false)
+            }
+        }
+
+        const handleInputFocus = () => {
+            if (isInvalid) {
+                setInvalid(false);
+            }
+        };  
 
     const inputClass = className(`form-control mb-3`, {
         'is-invalid': isInvalid
-    });
+    })
+   
     return (
         <div className="my-3">
             <h6>Todo</h6>
@@ -46,7 +59,8 @@ function AddTodo({ setTodos, inputValue, setInputValue, editingId, setEditingId 
                 className={inputClass}
                 placeholder="Your Todo..."
                 value={inputValue}
-                onChange={(event) => setInputValue(event.target.value)}
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
                 ref={inputRef}
             />
             <button
@@ -54,7 +68,7 @@ function AddTodo({ setTodos, inputValue, setInputValue, editingId, setEditingId 
                 className={"btn border border-2 btn-sm cursor-pointer"}
                 onClick={handleAddTodo}
             >
-                Submit
+                 {editingId ? "Edit" : "Submit"}
             </button>
         </div>
 
