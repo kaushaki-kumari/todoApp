@@ -10,7 +10,10 @@ function AddTodo({ setTodos, inputValue, setInputValue, editingId, setEditingId 
         if (editingId || inputValue === "") {
             inputRef.current.focus();
         }
-    }, [editingId]);
+        if (editingId) {
+            setInvalid(false);
+        }
+    }, [editingId, inputValue]);
 
     const handleAddTodo = () => {
         const trimmedValue = inputValue.trim();
