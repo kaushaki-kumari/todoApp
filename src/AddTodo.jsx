@@ -20,15 +20,16 @@ function AddTodo({ setTodos, inputValue, setInputValue, editingId, setEditingId 
                     prevTodos.map((todo) =>
                         todo.id === editingId ? { ...todo, title: trimmedValue } : todo));
                 setEditingId(null)
+                setInvalid(false);
             }
             else {
                 setTodos((prevTodos) => [
                     ...prevTodos,
                     { id: Date.now(), title: inputValue, completed: false },
                 ]);
+                setInvalid(false);
             }
             setInputValue("");
-            setInvalid(false);
         }
         else {
             setInvalid(true);
@@ -39,13 +40,7 @@ function AddTodo({ setTodos, inputValue, setInputValue, editingId, setEditingId 
             if(isInvalid){
                 setInvalid(false)
             }
-        }
-
-        const handleInputFocus = () => {
-            if (isInvalid) {
-                setInvalid(false);
-            }
-        };  
+        } 
 
     const inputClass = className(`form-control mb-3`, {
         'is-invalid': isInvalid
@@ -60,15 +55,18 @@ function AddTodo({ setTodos, inputValue, setInputValue, editingId, setEditingId 
                 placeholder="Your Todo..."
                 value={inputValue}
                 onChange={handleInputChange}
-                onFocus={handleInputFocus}
                 ref={inputRef}
+                style={{
+                    outline: "none", 
+                    boxShadow: "none", 
+                }}
             />
             <button
                 type="button"
-                className={"btn border border-2 btn-sm cursor-pointer"}
+                className={"btn border btn-sm cursor-pointer"}
                 onClick={handleAddTodo}
             >
-                 {editingId ? "Edit" : "Submit"}
+                 {editingId ? "Edit" : "Submit"}    
             </button>
         </div>
 
